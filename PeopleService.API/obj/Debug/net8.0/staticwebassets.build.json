@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "Yv56z2Dyaaltb9mwXyKYmxDFlfWtqJy2je6h38fzUAg=",
+  "Source": "PeopleService.API",
+  "BasePath": "_content/PeopleService.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

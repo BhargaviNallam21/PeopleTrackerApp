@@ -1,0 +1,17 @@
+C:\Users\bharg\source\repos\PeopleTrackerApp\TrackerService.Infrastructure\bin\Debug\net8.0\TrackerService.Infrastructure.deps.json
+C:\Users\bharg\source\repos\PeopleTrackerApp\TrackerService.Infrastructure\bin\Debug\net8.0\TrackerService.Infrastructure.runtimeconfig.json
+C:\Users\bharg\source\repos\PeopleTrackerApp\TrackerService.Infrastructure\bin\Debug\net8.0\TrackerService.Infrastructure.dll
+C:\Users\bharg\source\repos\PeopleTrackerApp\TrackerService.Infrastructure\bin\Debug\net8.0\TrackerService.Infrastructure.pdb
+C:\Users\bharg\source\repos\PeopleTrackerApp\TrackerService.Infrastructure\obj\Debug\net8.0\TrackerService.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\bharg\source\repos\PeopleTrackerApp\TrackerService.Infrastructure\obj\Debug\net8.0\TrackerService.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\bharg\source\repos\PeopleTrackerApp\TrackerService.Infrastructure\obj\Debug\net8.0\TrackerService.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\bharg\source\repos\PeopleTrackerApp\TrackerService.Infrastructure\obj\Debug\net8.0\TrackerService.Infrastructure.AssemblyInfo.cs
+C:\Users\bharg\source\repos\PeopleTrackerApp\TrackerService.Infrastructure\obj\Debug\net8.0\TrackerService.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\bharg\source\repos\PeopleTrackerApp\TrackerService.Infrastructure\obj\Debug\net8.0\TrackerService.Infrastructure.dll
+C:\Users\bharg\source\repos\PeopleTrackerApp\TrackerService.Infrastructure\obj\Debug\net8.0\refint\TrackerService.Infrastructure.dll
+C:\Users\bharg\source\repos\PeopleTrackerApp\TrackerService.Infrastructure\obj\Debug\net8.0\TrackerService.Infrastructure.pdb
+C:\Users\bharg\source\repos\PeopleTrackerApp\TrackerService.Infrastructure\obj\Debug\net8.0\TrackerService.Infrastructure.genruntimeconfig.cache
+C:\Users\bharg\source\repos\PeopleTrackerApp\TrackerService.Infrastructure\obj\Debug\net8.0\ref\TrackerService.Infrastructure.dll
+C:\Users\bharg\source\repos\PeopleTrackerApp\TrackerService.Infrastructure\bin\Debug\net8.0\TrackerService.Domain.dll
+C:\Users\bharg\source\repos\PeopleTrackerApp\TrackerService.Infrastructure\bin\Debug\net8.0\TrackerService.Domain.pdb
+C:\Users\bharg\source\repos\PeopleTrackerApp\TrackerService.Infrastructure\obj\Debug\net8.0\TrackerS.A639D88F.Up2Date

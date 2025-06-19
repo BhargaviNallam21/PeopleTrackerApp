@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "gIpIOGsTUYTW4BSSbM80D/naI8Y6j53Iz69Y4x6MwtQ=",
+  "Source": "TrackerService.API",
+  "BasePath": "_content/TrackerService.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

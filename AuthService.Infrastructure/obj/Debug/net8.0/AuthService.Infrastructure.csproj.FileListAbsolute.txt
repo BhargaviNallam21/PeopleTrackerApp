@@ -1,0 +1,17 @@
+C:\Users\bharg\source\repos\PeopleTrackerApp\AuthService.Infrastructure\obj\Debug\net8.0\AuthService.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\bharg\source\repos\PeopleTrackerApp\AuthService.Infrastructure\obj\Debug\net8.0\AuthService.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\bharg\source\repos\PeopleTrackerApp\AuthService.Infrastructure\obj\Debug\net8.0\AuthService.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\bharg\source\repos\PeopleTrackerApp\AuthService.Infrastructure\obj\Debug\net8.0\AuthService.Infrastructure.AssemblyInfo.cs
+C:\Users\bharg\source\repos\PeopleTrackerApp\AuthService.Infrastructure\obj\Debug\net8.0\AuthService.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\bharg\source\repos\PeopleTrackerApp\AuthService.Infrastructure\bin\Debug\net8.0\AuthService.Infrastructure.deps.json
+C:\Users\bharg\source\repos\PeopleTrackerApp\AuthService.Infrastructure\bin\Debug\net8.0\AuthService.Infrastructure.runtimeconfig.json
+C:\Users\bharg\source\repos\PeopleTrackerApp\AuthService.Infrastructure\bin\Debug\net8.0\AuthService.Infrastructure.dll
+C:\Users\bharg\source\repos\PeopleTrackerApp\AuthService.Infrastructure\bin\Debug\net8.0\AuthService.Infrastructure.pdb
+C:\Users\bharg\source\repos\PeopleTrackerApp\AuthService.Infrastructure\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\bharg\source\repos\PeopleTrackerApp\AuthService.Infrastructure\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\bharg\source\repos\PeopleTrackerApp\AuthService.Infrastructure\obj\Debug\net8.0\AuthServ.03063B79.Up2Date
+C:\Users\bharg\source\repos\PeopleTrackerApp\AuthService.Infrastructure\obj\Debug\net8.0\AuthService.Infrastructure.dll
+C:\Users\bharg\source\repos\PeopleTrackerApp\AuthService.Infrastructure\obj\Debug\net8.0\refint\AuthService.Infrastructure.dll
+C:\Users\bharg\source\repos\PeopleTrackerApp\AuthService.Infrastructure\obj\Debug\net8.0\AuthService.Infrastructure.pdb
+C:\Users\bharg\source\repos\PeopleTrackerApp\AuthService.Infrastructure\obj\Debug\net8.0\AuthService.Infrastructure.genruntimeconfig.cache
+C:\Users\bharg\source\repos\PeopleTrackerApp\AuthService.Infrastructure\obj\Debug\net8.0\ref\AuthService.Infrastructure.dll

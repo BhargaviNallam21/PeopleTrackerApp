@@ -1,0 +1,17 @@
+C:\Users\bharg\source\repos\PeopleTrackerApp\PeopleService.Infrastructure\bin\Debug\net8.0\PeopleService.Infrastructure.deps.json
+C:\Users\bharg\source\repos\PeopleTrackerApp\PeopleService.Infrastructure\bin\Debug\net8.0\PeopleService.Infrastructure.runtimeconfig.json
+C:\Users\bharg\source\repos\PeopleTrackerApp\PeopleService.Infrastructure\bin\Debug\net8.0\PeopleService.Infrastructure.dll
+C:\Users\bharg\source\repos\PeopleTrackerApp\PeopleService.Infrastructure\bin\Debug\net8.0\PeopleService.Infrastructure.pdb
+C:\Users\bharg\source\repos\PeopleTrackerApp\PeopleService.Infrastructure\obj\Debug\net8.0\PeopleService.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\bharg\source\repos\PeopleTrackerApp\PeopleService.Infrastructure\obj\Debug\net8.0\PeopleService.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\bharg\source\repos\PeopleTrackerApp\PeopleService.Infrastructure\obj\Debug\net8.0\PeopleService.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\bharg\source\repos\PeopleTrackerApp\PeopleService.Infrastructure\obj\Debug\net8.0\PeopleService.Infrastructure.AssemblyInfo.cs
+C:\Users\bharg\source\repos\PeopleTrackerApp\PeopleService.Infrastructure\obj\Debug\net8.0\PeopleService.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\bharg\source\repos\PeopleTrackerApp\PeopleService.Infrastructure\obj\Debug\net8.0\PeopleService.Infrastructure.dll
+C:\Users\bharg\source\repos\PeopleTrackerApp\PeopleService.Infrastructure\obj\Debug\net8.0\refint\PeopleService.Infrastructure.dll
+C:\Users\bharg\source\repos\PeopleTrackerApp\PeopleService.Infrastructure\obj\Debug\net8.0\PeopleService.Infrastructure.pdb
+C:\Users\bharg\source\repos\PeopleTrackerApp\PeopleService.Infrastructure\obj\Debug\net8.0\PeopleService.Infrastructure.genruntimeconfig.cache
+C:\Users\bharg\source\repos\PeopleTrackerApp\PeopleService.Infrastructure\obj\Debug\net8.0\ref\PeopleService.Infrastructure.dll
+C:\Users\bharg\source\repos\PeopleTrackerApp\PeopleService.Infrastructure\bin\Debug\net8.0\PeopleService.Domain.dll
+C:\Users\bharg\source\repos\PeopleTrackerApp\PeopleService.Infrastructure\bin\Debug\net8.0\PeopleService.Domain.pdb
+C:\Users\bharg\source\repos\PeopleTrackerApp\PeopleService.Infrastructure\obj\Debug\net8.0\PeopleSe.1DE5693F.Up2Date
