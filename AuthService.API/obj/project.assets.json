@@ -5451,11 +5451,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\bharg\\source\\repos\\PeopleTrackerApp\\AuthService.API\\AuthService.API.csproj",
+      "projectUniqueName": "C:\\Users\\bharg\\source\\repos\\ClonedPeopleTrackerAppfromGithub\\AuthService.API\\AuthService.API.csproj",
       "projectName": "AuthService.API",
-      "projectPath": "C:\\Users\\bharg\\source\\repos\\PeopleTrackerApp\\AuthService.API\\AuthService.API.csproj",
+      "projectPath": "C:\\Users\\bharg\\source\\repos\\ClonedPeopleTrackerAppfromGithub\\AuthService.API\\AuthService.API.csproj",
       "packagesPath": "C:\\Users\\bharg\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\bharg\\source\\repos\\PeopleTrackerApp\\AuthService.API\\obj\\",
+      "outputPath": "C:\\Users\\bharg\\source\\repos\\ClonedPeopleTrackerAppfromGithub\\AuthService.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\bharg\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5473,11 +5473,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\bharg\\source\\repos\\PeopleTrackerApp\\AuthService.Application\\AuthService.Application.csproj": {
-              "projectPath": "C:\\Users\\bharg\\source\\repos\\PeopleTrackerApp\\AuthService.Application\\AuthService.Application.csproj"
+            "C:\\Users\\bharg\\source\\repos\\ClonedPeopleTrackerAppfromGithub\\AuthService.Application\\AuthService.Application.csproj": {
+              "projectPath": "C:\\Users\\bharg\\source\\repos\\ClonedPeopleTrackerAppfromGithub\\AuthService.Application\\AuthService.Application.csproj"
             },
-            "C:\\Users\\bharg\\source\\repos\\PeopleTrackerApp\\AuthService.Infrastructure\\AuthService.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\bharg\\source\\repos\\PeopleTrackerApp\\AuthService.Infrastructure\\AuthService.Infrastructure.csproj"
+            "C:\\Users\\bharg\\source\\repos\\ClonedPeopleTrackerAppfromGithub\\AuthService.Infrastructure\\AuthService.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\bharg\\source\\repos\\ClonedPeopleTrackerAppfromGithub\\AuthService.Infrastructure\\AuthService.Infrastructure.csproj"
             }
           }
         }

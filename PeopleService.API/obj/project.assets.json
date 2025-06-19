@@ -5438,11 +5438,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\bharg\\source\\repos\\PeopleTrackerApp\\PeopleService.API\\PeopleService.API.csproj",
+      "projectUniqueName": "C:\\Users\\bharg\\source\\repos\\ClonedPeopleTrackerAppfromGithub\\PeopleService.API\\PeopleService.API.csproj",
       "projectName": "PeopleService.API",
-      "projectPath": "C:\\Users\\bharg\\source\\repos\\PeopleTrackerApp\\PeopleService.API\\PeopleService.API.csproj",
+      "projectPath": "C:\\Users\\bharg\\source\\repos\\ClonedPeopleTrackerAppfromGithub\\PeopleService.API\\PeopleService.API.csproj",
       "packagesPath": "C:\\Users\\bharg\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\bharg\\source\\repos\\PeopleTrackerApp\\PeopleService.API\\obj\\",
+      "outputPath": "C:\\Users\\bharg\\source\\repos\\ClonedPeopleTrackerAppfromGithub\\PeopleService.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\bharg\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5460,8 +5460,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\bharg\\source\\repos\\PeopleTrackerApp\\PeopleService.Application\\PeopleService.Application.csproj": {
-              "projectPath": "C:\\Users\\bharg\\source\\repos\\PeopleTrackerApp\\PeopleService.Application\\PeopleService.Application.csproj"
+            "C:\\Users\\bharg\\source\\repos\\ClonedPeopleTrackerAppfromGithub\\PeopleService.Application\\PeopleService.Application.csproj": {
+              "projectPath": "C:\\Users\\bharg\\source\\repos\\ClonedPeopleTrackerAppfromGithub\\PeopleService.Application\\PeopleService.Application.csproj"
             }
           }
         }

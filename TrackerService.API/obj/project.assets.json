@@ -5464,11 +5464,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\bharg\\source\\repos\\PeopleTrackerApp\\TrackerService.API\\TrackerService.API.csproj",
+      "projectUniqueName": "C:\\Users\\bharg\\source\\repos\\ClonedPeopleTrackerAppfromGithub\\TrackerService.API\\TrackerService.API.csproj",
       "projectName": "TrackerService.API",
-      "projectPath": "C:\\Users\\bharg\\source\\repos\\PeopleTrackerApp\\TrackerService.API\\TrackerService.API.csproj",
+      "projectPath": "C:\\Users\\bharg\\source\\repos\\ClonedPeopleTrackerAppfromGithub\\TrackerService.API\\TrackerService.API.csproj",
       "packagesPath": "C:\\Users\\bharg\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\bharg\\source\\repos\\PeopleTrackerApp\\TrackerService.API\\obj\\",
+      "outputPath": "C:\\Users\\bharg\\source\\repos\\ClonedPeopleTrackerAppfromGithub\\TrackerService.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\bharg\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5486,11 +5486,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\bharg\\source\\repos\\PeopleTrackerApp\\TrackerService.Application\\TrackerService.Application.csproj": {
-              "projectPath": "C:\\Users\\bharg\\source\\repos\\PeopleTrackerApp\\TrackerService.Application\\TrackerService.Application.csproj"
+            "C:\\Users\\bharg\\source\\repos\\ClonedPeopleTrackerAppfromGithub\\TrackerService.Application\\TrackerService.Application.csproj": {
+              "projectPath": "C:\\Users\\bharg\\source\\repos\\ClonedPeopleTrackerAppfromGithub\\TrackerService.Application\\TrackerService.Application.csproj"
             },
-            "C:\\Users\\bharg\\source\\repos\\PeopleTrackerApp\\TrackerService.Infrastructure\\TrackerService.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\bharg\\source\\repos\\PeopleTrackerApp\\TrackerService.Infrastructure\\TrackerService.Infrastructure.csproj"
+            "C:\\Users\\bharg\\source\\repos\\ClonedPeopleTrackerAppfromGithub\\TrackerService.Infrastructure\\TrackerService.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\bharg\\source\\repos\\ClonedPeopleTrackerAppfromGithub\\TrackerService.Infrastructure\\TrackerService.Infrastructure.csproj"
             }
           }
         }

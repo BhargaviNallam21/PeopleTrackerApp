@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oOPLc/AdajQ=",
+  "dgSpecHash": "jg1lz0Kl2cI=",
   "success": true,
-  "projectFilePath": "C:\\Users\\bharg\\source\\repos\\PeopleTrackerApp\\AuthService.Infrastructure\\AuthService.Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\bharg\\source\\repos\\ClonedPeopleTrackerAppfromGithub\\AuthService.Infrastructure\\AuthService.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\bharg\\.nuget\\packages\\azure.core\\1.44.1\\azure.core.1.44.1.nupkg.sha512",
     "C:\\Users\\bharg\\.nuget\\packages\\azure.extensions.aspnetcore.configuration.secrets\\1.4.0\\azure.extensions.aspnetcore.configuration.secrets.1.4.0.nupkg.sha512",
