@@ -7,23 +7,27 @@ variables:
   buildConfiguration: 'Release'
 
 stages:
-- stage: SonarQubeAnalysis
-  displayName: "🔍 SonarCloud Analysis"
+- stage: SonarCloudAnalysis
+  displayName: "🔍 SonarCloud Code Quality Check"
   jobs:
   - job: Analyze
+    displayName: "Run SonarCloud Analysis"
     pool:
       vmImage: 'windows-latest'
     steps:
-    - task: SonarQubePrepare@5
+    - checkout: self
+
+    - task: SonarCloudPrepare@1
+      displayName: "Prepare SonarCloud Analysis"
       inputs:
-        SonarQube: 'sonarconnectionPeopleTracker'  # 👈 Your SonarCloud connection
+        SonarCloud: 'sonarconnectionPeopleTracker'
+        organization: 'UPSOrg'  # This is the SonarCloud org ID (adjust if needed)
         scannerMode: 'MSBuild'
-        configMode: 'manual'
         projectKey: 'UPSOrg_PeopleTrackerApplication'
         projectName: 'PeopleTrackerApplication'
 
     - task: DotNetCoreCLI@2
-      displayName: 'Build for SonarCloud'
+      displayName: 'Build Solution'
       inputs:
         command: 'build'
         projects: |
@@ -32,21 +36,24 @@ stages:
           TrackerService.API/TrackerService.API.csproj
         arguments: '--configuration $(buildConfiguration)'
 
-    - task: SonarQubeAnalyze@5
+    - task: SonarCloudAnalyze@1
+      displayName: "Run SonarCloud Analysis"
 
-    - task: SonarQubePublish@5
+    - task: SonarCloudPublish@1
+      displayName: "Publish SonarCloud Results"
       inputs:
         pollingTimeoutSec: '300'
 
 - stage: BuildAndDeploy
-  displayName: "🚀 Build and Deploy to Azure"
-  dependsOn: SonarQubeAnalysis
+  displayName: "🚀 Build and Deploy All Microservices"
+  dependsOn: SonarCloudAnalysis
   jobs:
-  - job: DeployAll
-    displayName: "Publish and Deploy All Services"
+  - job: Deploy
     pool:
       vmImage: 'windows-latest'
     steps:
+    - checkout: self
+
     - task: UseDotNet@2
       inputs:
         packageType: 'sdk'
@@ -91,29 +98,29 @@ stages:
         arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/TrackerService'
         zipAfterPublish: true
 
-    # --- Deploy AuthService to Azure App Service ---
+    # --- Deploy AuthService ---
     - task: AzureWebApp@1
       displayName: 'Deploy AuthService'
       inputs:
-        azureSubscription: 'PeopleTrackerServiceConnectionToDeploy'  # 👈 Azure RM connection
+        azureSubscription: 'PeopleTrackerServiceConnectionToDeploy'
         appType: 'webApp'
-        appName: 'PeopleTrackerApplication'                          # 👈 App Service Name
+        appName: 'PeopleTrackerApplication'
         package: '$(Build.ArtifactStagingDirectory)/AuthService/**/*.zip'
 
-    # --- Deploy PeopleService to Azure App Service ---
+    # --- Deploy PeopleService ---
     - task: AzureWebApp@1
       displayName: 'Deploy PeopleService'
       inputs:
         azureSubscription: 'PeopleTrackerServiceConnectionToDeploy'
         appType: 'webApp'
-        appName: 'PeopleService-PeopleTracker'                       # 👈 App Service Name
+        appName: 'PeopleService-PeopleTracker'
         package: '$(Build.ArtifactStagingDirectory)/PeopleService/**/*.zip'
 
-    # --- Deploy TrackerService to Azure App Service ---
+    # --- Deploy TrackerService ---
     - task: AzureWebApp@1
       displayName: 'Deploy TrackerService'
       inputs:
         azureSubscription: 'PeopleTrackerServiceConnectionToDeploy'
         appType: 'webApp'
-        appName: 'TrackerService-PeopleTrackerapp'                   # 👈 App Service Name
+        appName: 'TrackerService-PeopleTrackerapp'
         package: '$(Build.ArtifactStagingDirectory)/TrackerService/**/*.zip'
