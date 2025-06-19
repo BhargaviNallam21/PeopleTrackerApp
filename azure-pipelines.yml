@@ -39,10 +39,7 @@ stages:
     - task: SonarCloudAnalyze@1
       displayName: "Run SonarCloud Analysis"
 
-    - task: SonarCloudPublish@1
-      displayName: "Publish SonarCloud Results"
-      inputs:
-        pollingTimeoutSec: '300'
+   
 
 - stage: BuildAndDeploy
   displayName: "🚀 Build and Deploy All Microservices"
