@@ -25,9 +25,18 @@ namespace PeopleService.Infrastructure.Repositories
 
         public async Task<Person> AddAsync(Person person)
         {
-            _context.People.Add(person);
-            await _context.SaveChangesAsync();
-            return person;
+
+            try
+            {
+                _context.People.Add(person);
+                await _context.SaveChangesAsync();
+                return person;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("❌ Error adding person: " + ex.Message);
+                throw; // or return null / custom error
+            }
         }
 
         public async Task<bool> UpdateAsync(Person person)
@@ -46,12 +55,20 @@ namespace PeopleService.Infrastructure.Repositories
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var person = await _context.People.FindAsync(id);
-            if (person == null) return false;
+            try
+            {
 
-            _context.People.Remove(person);
-            await _context.SaveChangesAsync();
-            return true;
+                var deletedCount = await _context.People
+       .Where(p => p.Id == id)
+       .ExecuteDeleteAsync();
+
+                return deletedCount > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("❌ Error adding person: " + ex.Message);
+                throw; // or return null / custom error
+            }
         }
     }
 }

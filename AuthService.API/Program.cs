@@ -1,4 +1,4 @@
-
+﻿
 
 using AuthService.Application.Interfaces;
 using AuthService.Application.Services;
@@ -23,15 +23,33 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
-builder.Services.AddDbContext<AuthDbContext>(opts =>
-    opts.UseSqlServer(builder.Configuration.GetConnectionString("AuthDb")));
-
-
 //builder.Services.AddDbContext<AuthDbContext>(opts =>
-//opts.UseSqlServer(builder.Configuration.GetConnectionString("PeopleTrackerDBAuthConnectionString")));
+//    opts.UseSqlServer(builder.Configuration.GetConnectionString("AuthDb")));
+
+//builder.Configuration.AddUserSecrets<Program>();
+//builder.Services.AddDbContext<AuthDbContext>(opts =>
+//opts.UseSqlServer(builder.Configuration.GetConnectionString("PeopleTrackerProdDbconnectionstring")));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthServicecls>();
 builder.Services.AddControllers();
+builder.Configuration.AddUserSecrets<Program>();
+var keyVaultName = builder.Configuration["PeopleTrackerKeys"];
+
+if (!string.IsNullOrEmpty(keyVaultName))
+{
+    builder.Configuration.AddAzureKeyVault(
+        new Uri($"https://{keyVaultName}.vault.azure.net/"),
+        new DefaultAzureCredential());
+}
+
+// Now build the configuration AFTER adding Key Vault
+//var configuration = builder.Configuration.Build();
+
+// Use the built configuration from here on
+builder.Services.AddDbContext<AuthDbContext>(opts =>
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("PeopleTrackerProdDbconnectionstring")));
+var key = builder.Configuration["JwtSettings:Key"];
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(opts =>
     {
@@ -51,21 +69,23 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Configuration.AddAzureKeyVault(
-    new Uri($"https://{builder.Configuration["PeopleTrackerKeys"]}.vault.azure.net/"),
-    new DefaultAzureCredential());
+//builder.Configuration.AddAzureKeyVault(
+//    new Uri($"https://{builder.Configuration["PeopleTrackerKeys"]}.vault.azure.net/"),
+//    new DefaultAzureCredential());
 
-var key = builder.Configuration["JwtSettings:Key"];
+
 
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
 
+app.UseSwagger();
+app.UseSwaggerUI();
 // Configure the HTTP request pipeline.
 app.UseHttpsRedirection();
 

@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 	  <SonarQubeTestProject>false</SonarQubeTestProject>
+    <UserSecretsId>fb45cbee-123c-46fe-8c05-c6f5ba93a66b</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

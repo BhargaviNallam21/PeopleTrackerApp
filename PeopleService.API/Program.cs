@@ -1,4 +1,4 @@
-using Azure.Identity;
+﻿using Azure.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -6,7 +6,6 @@ using Microsoft.OpenApi.Models;
 
 using PeopleService.Application.Services;
 using PeopleService.Infrastructure.Data;
-
 using PeopleService.Infrastructure.Repositories;
 using Serilog;
 using System.Text;
@@ -24,8 +23,11 @@ Log.Logger = new LoggerConfiguration()
 builder.Host.UseSerilog();
 
 // ---------- EF Core ---------- //
-builder.Services.AddDbContext<PeopleDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("PeopleDb")));
+//builder.Services.AddDbContext<PeopleDbContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("PeopleDb")));
+builder.Configuration.AddUserSecrets<Program>();
+builder.Services.AddDbContext<PeopleDbContext>(opts =>
+opts.UseSqlServer(builder.Configuration.GetConnectionString("PeopleTrackerProdDbconnectionstring")));
 
 // ---------- Azure Key Vault ---------- //
 builder.Configuration.AddAzureKeyVault(
@@ -33,8 +35,11 @@ builder.Configuration.AddAzureKeyVault(
     new DefaultAzureCredential());
 
 // Get JWT Key from Key Vault
-var jwtKey = builder.Configuration["JwtSettings:Key"];
-if (string.IsNullOrEmpty(jwtKey))
+
+
+
+var key = builder.Configuration["JwtSettings:Key"];
+if (string.IsNullOrEmpty(key))
     throw new Exception("JWT Key not loaded from Azure Key Vault");
 
 // ---------- JWT Authentication ---------- //
@@ -44,7 +49,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
             ValidateIssuer = false,
             ValidateAudience = false
         };
@@ -87,12 +92,17 @@ builder.Services.AddSwaggerGen(c =>
 var app = builder.Build();
 
 // ---------- Middleware ---------- //
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage(); // ✅ Shows full error details in dev
 }
-
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthentication();
