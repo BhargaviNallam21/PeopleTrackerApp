@@ -19,7 +19,6 @@ Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
     .WriteTo.Console()
     .WriteTo.File("Logs/authservice-log.txt", rollingInterval: RollingInterval.Day, retainedFileCountLimit: 7)
-
     .CreateLogger();
 
 builder.Host.UseSerilog();
