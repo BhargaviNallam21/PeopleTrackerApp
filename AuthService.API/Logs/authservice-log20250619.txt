@@ -1728,3 +1728,25 @@ WHERE [u].[Username] = @__username_0 AND [u].[PasswordHash] = @__hashed_1
 2025-06-19 16:35:59.618 -04:00 [INF] Executed action AuthService.API.Controllers.AuthController.Login (AuthService.API) in 43767.8148ms
 2025-06-19 16:35:59.619 -04:00 [INF] Executed endpoint 'AuthService.API.Controllers.AuthController.Login (AuthService.API)'
 2025-06-19 16:35:59.638 -04:00 [INF] Request finished HTTP/1.1 POST http://localhost:31034/api/Auth/login - 200 null application/json; charset=utf-8 44135.1564ms
+2025-06-19 16:57:41.620 -04:00 [INF] User profile is available. Using 'C:\Users\bharg\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-06-19 16:57:42.355 -04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-19 16:57:42.380 -04:00 [INF] Hosting environment: Production
+2025-06-19 16:57:42.381 -04:00 [INF] Content root path: C:\Users\bharg\source\repos\ClonedPeopleTrackerAppfromGithub\AuthService.API
+2025-06-19 16:57:42.503 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:31034/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-19 16:57:42.507 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:31034/_vs/browserLink - null null
+2025-06-19 16:57:42.766 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:31034/_framework/aspnetcore-browser-refresh.js - 200 13766 application/javascript; charset=utf-8 282.5928ms
+2025-06-19 16:57:42.818 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:31034/_vs/browserLink - 200 null text/javascript; charset=UTF-8 339.3923ms
+2025-06-19 16:57:42.913 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:31034/swagger/v1/swagger.json - null null
+2025-06-19 16:57:43.375 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:31034/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 461.921ms
+2025-06-19 16:57:53.987 -04:00 [INF] Request starting HTTP/1.1 POST http://localhost:31034/api/Auth/login - application/json 59
+2025-06-19 16:57:53.996 -04:00 [WRN] Failed to determine the https port for redirect.
+2025-06-19 16:57:54.266 -04:00 [INF] Executing endpoint 'AuthService.API.Controllers.AuthController.Login (AuthService.API)'
+2025-06-19 16:57:54.332 -04:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AuthService.Domain.Entities.LoginRequestCls) on controller AuthService.API.Controllers.AuthController (AuthService.API).
+2025-06-19 16:58:04.784 -04:00 [INF] Executed DbCommand (67ms) [Parameters=[@__username_0='?' (Size = 4000), @__hashed_1='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[PasswordHash], [u].[Role], [u].[Username]
+FROM [Users] AS [u]
+WHERE [u].[Username] = @__username_0 AND [u].[PasswordHash] = @__hashed_1
+2025-06-19 16:58:32.458 -04:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[AuthService.Application.DTO.LoginResponse, AuthService.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-06-19 16:58:32.486 -04:00 [INF] Executed action AuthService.API.Controllers.AuthController.Login (AuthService.API) in 38148.4416ms
+2025-06-19 16:58:32.486 -04:00 [INF] Executed endpoint 'AuthService.API.Controllers.AuthController.Login (AuthService.API)'
+2025-06-19 16:58:32.495 -04:00 [INF] Request finished HTTP/1.1 POST http://localhost:31034/api/Auth/login - 200 null application/json; charset=utf-8 38508.0009ms
