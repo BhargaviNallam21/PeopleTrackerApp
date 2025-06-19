@@ -1,0 +1,119 @@
+trigger:
+  branches:
+    include:
+      - develop
+
+variables:
+  buildConfiguration: 'Release'
+
+stages:
+- stage: SonarQubeAnalysis
+  displayName: "🔍 SonarCloud Analysis"
+  jobs:
+  - job: Analyze
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - task: SonarQubePrepare@5
+      inputs:
+        SonarQube: 'sonarconnectionPeopleTracker'  # 👈 Your SonarCloud connection
+        scannerMode: 'MSBuild'
+        configMode: 'manual'
+        projectKey: 'UPSOrg_PeopleTrackerApplication'
+        projectName: 'PeopleTrackerApplication'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Build for SonarCloud'
+      inputs:
+        command: 'build'
+        projects: |
+          AuthService.API/AuthService.API.csproj
+          PeopleService.API/PeopleService.API.csproj
+          TrackerService.API/TrackerService.API.csproj
+        arguments: '--configuration $(buildConfiguration)'
+
+    - task: SonarQubeAnalyze@5
+
+    - task: SonarQubePublish@5
+      inputs:
+        pollingTimeoutSec: '300'
+
+- stage: BuildAndDeploy
+  displayName: "🚀 Build and Deploy to Azure"
+  dependsOn: SonarQubeAnalysis
+  jobs:
+  - job: DeployAll
+    displayName: "Publish and Deploy All Services"
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: 'sdk'
+        version: '8.0.x'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore Dependencies'
+      inputs:
+        command: 'restore'
+        projects: |
+          AuthService.API/AuthService.API.csproj
+          PeopleService.API/PeopleService.API.csproj
+          TrackerService.API/TrackerService.API.csproj
+
+    # --- Publish AuthService ---
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish AuthService'
+      inputs:
+        command: 'publish'
+        publishWebProjects: false
+        projects: 'AuthService.API/AuthService.API.csproj'
+        arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/AuthService'
+        zipAfterPublish: true
+
+    # --- Publish PeopleService ---
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish PeopleService'
+      inputs:
+        command: 'publish'
+        publishWebProjects: false
+        projects: 'PeopleService.API/PeopleService.API.csproj'
+        arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/PeopleService'
+        zipAfterPublish: true
+
+    # --- Publish TrackerService ---
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish TrackerService'
+      inputs:
+        command: 'publish'
+        publishWebProjects: false
+        projects: 'TrackerService.API/TrackerService.API.csproj'
+        arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/TrackerService'
+        zipAfterPublish: true
+
+    # --- Deploy AuthService to Azure App Service ---
+    - task: AzureWebApp@1
+      displayName: 'Deploy AuthService'
+      inputs:
+        azureSubscription: 'PeopleTrackerServiceConnectionToDeploy'  # 👈 Azure RM connection
+        appType: 'webApp'
+        appName: 'PeopleTrackerApplication'                          # 👈 App Service Name
+        package: '$(Build.ArtifactStagingDirectory)/AuthService/**/*.zip'
+
+    # --- Deploy PeopleService to Azure App Service ---
+    - task: AzureWebApp@1
+      displayName: 'Deploy PeopleService'
+      inputs:
+        azureSubscription: 'PeopleTrackerServiceConnectionToDeploy'
+        appType: 'webApp'
+        appName: 'PeopleService-PeopleTracker'                       # 👈 App Service Name
+        package: '$(Build.ArtifactStagingDirectory)/PeopleService/**/*.zip'
+
+    # --- Deploy TrackerService to Azure App Service ---
+    - task: AzureWebApp@1
+      displayName: 'Deploy TrackerService'
+      inputs:
+        azureSubscription: 'PeopleTrackerServiceConnectionToDeploy'
+        appType: 'webApp'
+        appName: 'TrackerService-PeopleTrackerapp'                   # 👈 App Service Name
+        package: '$(Build.ArtifactStagingDirectory)/TrackerService/**/*.zip'
