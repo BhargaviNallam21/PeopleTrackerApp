@@ -21,7 +21,7 @@ stages:
       displayName: "Prepare SonarCloud Analysis"
       inputs:
         SonarCloud: 'sonarconnectionPeopleTracker'
-        organization: 'UPSOrg'  # This is the SonarCloud org ID (adjust if needed)
+        organization: 'upsorgsonar'  # This is the SonarCloud org ID (adjust if needed)
         scannerMode: 'MSBuild'
         projectKey: 'UPSOrg_PeopleTrackerApplication'
         projectName: 'PeopleTrackerApplication'
