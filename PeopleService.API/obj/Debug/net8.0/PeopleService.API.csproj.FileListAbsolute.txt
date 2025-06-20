@@ -379,3 +379,4 @@ C:\Users\bharg\source\repos\ClonedPeopleTrackerAppfromGithub\PeopleService.API\o
 C:\Users\bharg\source\repos\ClonedPeopleTrackerAppfromGithub\PeopleService.API\obj\Debug\net8.0\PeopleService.API.pdb
 C:\Users\bharg\source\repos\ClonedPeopleTrackerAppfromGithub\PeopleService.API\obj\Debug\net8.0\PeopleService.API.genruntimeconfig.cache
 C:\Users\bharg\source\repos\ClonedPeopleTrackerAppfromGithub\PeopleService.API\obj\Debug\net8.0\ref\PeopleService.API.dll
+C:\Users\bharg\source\repos\ClonedPeopleTrackerAppfromGithub\PeopleService.API\bin\Debug\net8.0\appsettings.Production.json

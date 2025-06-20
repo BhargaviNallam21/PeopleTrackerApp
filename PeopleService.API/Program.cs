@@ -25,31 +25,64 @@ builder.Host.UseSerilog();
 // ---------- EF Core ---------- //
 //builder.Services.AddDbContext<PeopleDbContext>(options =>
 //    options.UseSqlServer(builder.Configuration.GetConnectionString("PeopleDb")));
+//builder.Configuration.AddUserSecrets<Program>();
+//builder.Services.AddDbContext<PeopleDbContext>(opts =>
+//opts.UseSqlServer(builder.Configuration.GetConnectionString("PeopleTrackerProdDbconnectionstring")));
+
+//// ---------- Azure Key Vault ---------- //
+//builder.Configuration.AddAzureKeyVault(
+//    new Uri($"https://{builder.Configuration["PeopleTrackerKeys"]}.vault.azure.net/"),
+//    new DefaultAzureCredential());
+
+//// Get JWT Key from Key Vault
+
+
+
+//var key = builder.Configuration["JwtSettings:Key"];
+//if (string.IsNullOrEmpty(key))
+//    throw new Exception("JWT Key not loaded from Azure Key Vault");
+
 builder.Configuration.AddUserSecrets<Program>();
-builder.Services.AddDbContext<PeopleDbContext>(opts =>
-opts.UseSqlServer(builder.Configuration.GetConnectionString("PeopleTrackerProdDbconnectionstring")));
 
-// ---------- Azure Key Vault ---------- //
-builder.Configuration.AddAzureKeyVault(
-    new Uri($"https://{builder.Configuration["PeopleTrackerKeys"]}.vault.azure.net/"),
-    new DefaultAzureCredential());
+var keyVaultName1 = builder.Configuration["KeyVaultName"];
 
-// Get JWT Key from Key Vault
+if (!string.IsNullOrEmpty(keyVaultName1))
+{
+    builder.Configuration.AddAzureKeyVault(
+        new Uri($"https://{keyVaultName1}.vault.azure.net/"),
+        new DefaultAzureCredential());
+}
 
+var config = builder.Configuration;
 
+try
+{
+    var jwtKey = config["JwtSettings:Key"];
+    if (string.IsNullOrEmpty(jwtKey))
+        throw new Exception("❌ JWT secret not found");
 
-var key = builder.Configuration["JwtSettings:Key"];
-if (string.IsNullOrEmpty(key))
-    throw new Exception("JWT Key not loaded from Azure Key Vault");
+    var connStr = config.GetConnectionString("PeopleTrackerProdDbconnectionstring");
+    if (string.IsNullOrEmpty(connStr))
+        throw new Exception("❌ Connection string not found");
+
+    builder.Services.AddDbContext<PeopleDbContext>(opts => opts.UseSqlServer(connStr));
+}
+catch (Exception ex)
+{
+    Log.Error(ex, "Startup failure");
+    throw;
+}
+
 
 // ---------- JWT Authentication ---------- //
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        var jwtKey = config["JwtSettings:Key"];
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
             ValidateIssuer = false,
             ValidateAudience = false
         };
