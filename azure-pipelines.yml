@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-      - develop
+     - Develop
 
 variables:
   buildConfiguration: 'Release'
