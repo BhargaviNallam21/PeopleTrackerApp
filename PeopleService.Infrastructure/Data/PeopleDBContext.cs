@@ -7,7 +7,7 @@ namespace PeopleService.Infrastructure.Data
     {
         public PeopleDbContext(DbContextOptions<PeopleDbContext> options) : base(options) { }
 
-        public DbSet<Person> People { get; set; }
+        public DbSet<Person> People { get; set; } = null!;
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Person>(entity =>

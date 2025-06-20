@@ -31,7 +31,8 @@ namespace AuthService.Application.Services
             var newUser = new User
             {
                 Username = request.Username,
-                PasswordHash = passwordHash
+                PasswordHash = passwordHash,
+                Role = request.Role
             };
 
             await _repo.AddUserAsync(newUser);

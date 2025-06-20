@@ -1,0 +1,21 @@
+2025-06-20 10:41:18.377 -04:00 [INF] User profile is available. Using 'C:\Users\bharg\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-06-20 10:41:19.143 -04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-20 10:41:19.147 -04:00 [INF] Hosting environment: Production
+2025-06-20 10:41:19.180 -04:00 [INF] Content root path: C:\Users\bharg\source\repos\ClonedPeopleTrackerAppfromGithub\PeopleService.API
+2025-06-20 10:41:19.340 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:41412/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-20 10:41:19.341 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:41412/_vs/browserLink - null null
+2025-06-20 10:41:19.638 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:41412/_framework/aspnetcore-browser-refresh.js - 200 13770 application/javascript; charset=utf-8 334.9705ms
+2025-06-20 10:41:19.704 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:41412/_vs/browserLink - 200 null text/javascript; charset=UTF-8 406.9339ms
+2025-06-20 10:41:19.809 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:41412/swagger/v1/swagger.json - null null
+2025-06-20 10:41:20.341 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:41412/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 532.5855ms
+2025-06-20 10:45:28.874 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:41412/api/People/ - null null
+2025-06-20 10:45:28.911 -04:00 [WRN] Failed to determine the https port for redirect.
+2025-06-20 10:45:29.333 -04:00 [INF] Executing endpoint 'PeopleService.API.Controllers.PeopleController.GetAll (PeopleService.API)'
+2025-06-20 10:45:29.404 -04:00 [INF] Route matched with {action = "GetAll", controller = "People"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller PeopleService.API.Controllers.PeopleController (PeopleService.API).
+2025-06-20 10:45:37.128 -04:00 [INF] Executed DbCommand (96ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[BirthDate], [p].[City], [p].[CreatedAt], [p].[Email], [p].[FullName]
+FROM [People] AS [p]
+2025-06-20 10:45:37.387 -04:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+SelectListIterator`2[[PeopleService.Domain.Entities.Person, PeopleService.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[PeopleService.Application.DTOs.PersonDto, PeopleService.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-06-20 10:45:37.614 -04:00 [INF] Executed action PeopleService.API.Controllers.PeopleController.GetAll (PeopleService.API) in 8200.6035ms
+2025-06-20 10:45:37.615 -04:00 [INF] Executed endpoint 'PeopleService.API.Controllers.PeopleController.GetAll (PeopleService.API)'
+2025-06-20 10:45:37.630 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:41412/api/People/ - 200 null application/json; charset=utf-8 8758.536ms

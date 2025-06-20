@@ -1,0 +1,123 @@
+trigger:
+  branches:
+    include:
+      - Develop
+      
+variables:
+  buildConfiguration: 'Release'
+
+stages:
+- stage: SonarCloudAnalysis
+  displayName: "🔍 SonarCloud Code Quality Check"
+  jobs:
+  - job: Analyze
+    displayName: "Run SonarCloud Analysis"
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - checkout: self
+
+    - task: SonarCloudPrepare@1
+      displayName: "Prepare SonarCloud Analysis"
+      inputs:
+        SonarCloud: 'sonarconnectionPeopleTracker'
+        organization: 'upsorgsonar'  # This is the SonarCloud org ID (adjust if needed)
+        scannerMode: 'MSBuild'
+        projectKey: 'UPSOrg_PeopleTrackerApplication'
+        projectName: 'PeopleTrackerApplication'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Build Solution'
+      inputs:
+        command: 'build'
+        projects: |
+          AuthService.API/AuthService.API.csproj
+          PeopleService.API/PeopleService.API.csproj
+          TrackerService.API/TrackerService.API.csproj
+        arguments: '--configuration $(buildConfiguration)'
+
+    - task: SonarCloudAnalyze@1
+      displayName: "Run SonarCloud Analysis"
+
+   
+
+- stage: BuildAndDeploy
+  displayName: "🚀 Build and Deploy All Microservices"
+  dependsOn: SonarCloudAnalysis
+  jobs:
+  - job: Deploy
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - checkout: self
+
+    - task: UseDotNet@2
+      inputs:
+        packageType: 'sdk'
+        version: '8.0.x'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore Dependencies'
+      inputs:
+        command: 'restore'
+        projects: |
+          AuthService.API/AuthService.API.csproj
+          PeopleService.API/PeopleService.API.csproj
+          TrackerService.API/TrackerService.API.csproj
+
+    # --- Publish AuthService ---
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish AuthService'
+      inputs:
+        command: 'publish'
+        publishWebProjects: false
+        projects: 'AuthService.API/AuthService.API.csproj'
+        arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/AuthService'
+        zipAfterPublish: true
+
+    # --- Publish PeopleService ---
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish PeopleService'
+      inputs:
+        command: 'publish'
+        publishWebProjects: false
+        projects: 'PeopleService.API/PeopleService.API.csproj'
+        arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/PeopleService'
+        zipAfterPublish: true
+
+    # --- Publish TrackerService ---
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish TrackerService'
+      inputs:
+        command: 'publish'
+        publishWebProjects: false
+        projects: 'TrackerService.API/TrackerService.API.csproj'
+        arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/TrackerService'
+        zipAfterPublish: true
+
+    # --- Deploy AuthService ---
+    - task: AzureWebApp@1
+      displayName: 'Deploy AuthService'
+      inputs:
+        azureSubscription: 'PeopleTrackerServiceConnectionToDeploy'
+        appType: 'webApp'
+        appName: 'AuthServicePeopleTracker'
+        package: '$(Build.ArtifactStagingDirectory)/AuthService/**/*.zip'
+
+    # --- Deploy PeopleService ---
+    - task: AzureWebApp@1
+      displayName: 'Deploy PeopleService'
+      inputs:
+        azureSubscription: 'PeopleTrackerServiceConnectionToDeploy'
+        appType: 'webApp'
+        appName: 'PeopleServicePeopleTracker'
+        package: '$(Build.ArtifactStagingDirectory)/PeopleService/**/*.zip'
+
+    # --- Deploy TrackerService ---
+    - task: AzureWebApp@1
+      displayName: 'Deploy TrackerService'
+      inputs:
+        azureSubscription: 'PeopleTrackerServiceConnectionToDeploy'
+        appType: 'webApp'
+        appName: 'TrackerServicePeopleTracker'
+        package: '$(Build.ArtifactStagingDirectory)/TrackerService/**/*.zip'

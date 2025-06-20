@@ -1,4 +1,4 @@
-using Azure.Identity;
+﻿using Azure.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -6,7 +6,6 @@ using Microsoft.OpenApi.Models;
 
 using PeopleService.Application.Services;
 using PeopleService.Infrastructure.Data;
-
 using PeopleService.Infrastructure.Repositories;
 using Serilog;
 using System.Text;
@@ -24,23 +23,62 @@ Log.Logger = new LoggerConfiguration()
 builder.Host.UseSerilog();
 
 // ---------- EF Core ---------- //
-builder.Services.AddDbContext<PeopleDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("PeopleDb")));
+//builder.Services.AddDbContext<PeopleDbContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("PeopleDb")));
+//builder.Configuration.AddUserSecrets<Program>();
+//builder.Services.AddDbContext<PeopleDbContext>(opts =>
+//opts.UseSqlServer(builder.Configuration.GetConnectionString("PeopleTrackerProdDbconnectionstring")));
 
-// ---------- Azure Key Vault ---------- //
-builder.Configuration.AddAzureKeyVault(
-    new Uri($"https://{builder.Configuration["PeopleTrackerKeys"]}.vault.azure.net/"),
-    new DefaultAzureCredential());
+//// ---------- Azure Key Vault ---------- //
+//builder.Configuration.AddAzureKeyVault(
+//    new Uri($"https://{builder.Configuration["PeopleTrackerKeys"]}.vault.azure.net/"),
+//    new DefaultAzureCredential());
 
-// Get JWT Key from Key Vault
-var jwtKey = builder.Configuration["JwtSettings:Key"];
-if (string.IsNullOrEmpty(jwtKey))
-    throw new Exception("JWT Key not loaded from Azure Key Vault");
+//// Get JWT Key from Key Vault
+
+
+
+//var key = builder.Configuration["JwtSettings:Key"];
+//if (string.IsNullOrEmpty(key))
+//    throw new Exception("JWT Key not loaded from Azure Key Vault");
+
+builder.Configuration.AddUserSecrets<Program>();
+
+var keyVaultName1 = builder.Configuration["KeyVaultName"];
+
+if (!string.IsNullOrEmpty(keyVaultName1))
+{
+    builder.Configuration.AddAzureKeyVault(
+        new Uri($"https://{keyVaultName1}.vault.azure.net/"),
+        new DefaultAzureCredential());
+}
+
+var config = builder.Configuration;
+
+try
+{
+    var jwtKey = config["JwtSettings:Key"];
+    if (string.IsNullOrEmpty(jwtKey))
+        throw new Exception("❌ JWT secret not found");
+
+    var connStr = config.GetConnectionString("PeopleTrackerProdDbconnectionstring");
+    if (string.IsNullOrEmpty(connStr))
+        throw new Exception("❌ Connection string not found");
+
+    builder.Services.AddDbContext<PeopleDbContext>(opts => opts.UseSqlServer(connStr));
+}
+catch (Exception ex)
+{
+    Log.Error(ex, "Startup failure");
+    throw;
+}
+
 
 // ---------- JWT Authentication ---------- //
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        var jwtKey = config["JwtSettings:Key"];
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
@@ -87,12 +125,17 @@ builder.Services.AddSwaggerGen(c =>
 var app = builder.Build();
 
 // ---------- Middleware ---------- //
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage(); // ✅ Shows full error details in dev
 }
-
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthentication();
