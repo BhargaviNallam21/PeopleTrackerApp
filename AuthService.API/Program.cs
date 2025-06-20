@@ -133,13 +133,13 @@ builder.Host.UseSerilog();
 builder.Configuration.AddUserSecrets<Program>();
 
 // Read Key Vault Name from user secrets/appsettings
-var keyVaultName = builder.Configuration["PeopleTrackerKeys"];
+var keyVaultName1 = builder.Configuration["KeyVaultName"];
 
 // Add Azure Key Vault (if name exists)
-if (!string.IsNullOrEmpty(keyVaultName))
+if (!string.IsNullOrEmpty(keyVaultName1))
 {
     builder.Configuration.AddAzureKeyVault(
-        new Uri($"https://{keyVaultName}.vault.azure.net/"),
+        new Uri($"https://{keyVaultName1}.vault.azure.net/"),
         new DefaultAzureCredential());
 }
 
@@ -147,19 +147,38 @@ if (!string.IsNullOrEmpty(keyVaultName))
 var config = builder.Configuration;
 
 // ✅ Read values safely after config is built
-var jwtKey = config["JwtSettings:Key"];
-var connStr = config.GetConnectionString("PeopleTrackerProdDbconnectionstring");
+//var jwtKey = config["JwtSettings:Key"];
+//var connStr = config.GetConnectionString("PeopleTrackerProdDbconnectionstring");
 
-// 🧨 Add validation and throw if secrets are missing
-if (string.IsNullOrEmpty(jwtKey))
-    throw new Exception("JWT secret (JwtSettings:Key) not found in configuration.");
+//// 🧨 Add validation and throw if secrets are missing
+//if (string.IsNullOrEmpty(jwtKey))
+//    throw new Exception("JWT secret (JwtSettings:Key) not found in configuration.");
 
-if (string.IsNullOrEmpty(connStr))
-    throw new Exception("Connection string (PeopleTrackerProdDbconnectionstring) not found in configuration.");
+//if (string.IsNullOrEmpty(connStr))
+//    throw new Exception("Connection string (PeopleTrackerProdDbconnectionstring) not found in configuration.");
 
-// DB Context
-builder.Services.AddDbContext<AuthDbContext>(opts =>
-    opts.UseSqlServer(connStr));
+//// DB Context
+//builder.Services.AddDbContext<AuthDbContext>(opts =>
+//    opts.UseSqlServer(connStr));
+
+try
+{
+    var jwtKey = config["JwtSettings:Key"];
+    if (string.IsNullOrEmpty(jwtKey))
+        throw new Exception("❌ JWT secret not found");
+
+    var connStr = config.GetConnectionString("PeopleTrackerProdDbconnectionstring");
+    if (string.IsNullOrEmpty(connStr))
+        throw new Exception("❌ Connection string not found");
+
+    builder.Services.AddDbContext<AuthDbContext>(opts => opts.UseSqlServer(connStr));
+}
+catch (Exception ex)
+{
+    Log.Error(ex, "Startup failure");
+    throw;
+}
+
 
 // Register services
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -172,6 +191,7 @@ builder.Services.AddControllers();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(opts =>
     {
+        var jwtKey = config["JwtSettings:Key"];
         opts.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,

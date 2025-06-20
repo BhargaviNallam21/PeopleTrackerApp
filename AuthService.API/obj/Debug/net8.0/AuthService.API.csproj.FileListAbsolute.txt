@@ -381,3 +381,4 @@ C:\Users\bharg\source\repos\ClonedPeopleTrackerAppfromGithub\AuthService.API\obj
 C:\Users\bharg\source\repos\ClonedPeopleTrackerAppfromGithub\AuthService.API\obj\Debug\net8.0\ref\AuthService.API.dll
 C:\Users\bharg\source\repos\ClonedPeopleTrackerAppfromGithub\AuthService.API\obj\Debug\net8.0\AuthService.API.Properties.Resources.resources
 C:\Users\bharg\source\repos\ClonedPeopleTrackerAppfromGithub\AuthService.API\obj\Debug\net8.0\AuthService.API.csproj.GenerateResource.cache
+C:\Users\bharg\source\repos\ClonedPeopleTrackerAppfromGithub\AuthService.API\bin\Debug\net8.0\appsettings.Production.json
