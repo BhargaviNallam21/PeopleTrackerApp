@@ -24,7 +24,7 @@ stages:
         npm run build
       displayName: 'Install dependencies and build React app'
 
-    - script: dir $(frontendFolder)/dist
+    - powershell: dir $(frontendFolder)/dist
       displayName: 'Verify dist folder contents'
 
     - task: CopyFiles@2
