@@ -2,9 +2,7 @@ trigger:
   branches:
     include:
       - Develop5
-  paths:
-    include:
-      - frontend/**
+  
 
 pool:
   vmImage: 'windows-latest'
