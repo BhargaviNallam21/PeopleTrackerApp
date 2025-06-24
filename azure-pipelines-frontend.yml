@@ -14,6 +14,7 @@ variables:
 
 stages:
 - stage: Build
+  displayName: 'Build Frontend'
   jobs:
   - job: BuildReact
     displayName: 'Build React Frontend'
@@ -29,10 +30,9 @@ stages:
         npm run build
       displayName: 'Install dependencies and build React app'
 
-    # Verify dist folder existence after build
-    - script: |
-        echo "Checking contents of dist folder..."
-        dir $(frontendFolder)/dist
+    - powershell: |
+        Write-Host "Checking contents of dist folder..."
+        Get-ChildItem "$(frontendFolder)\dist"
       displayName: 'Verify dist folder contents'
 
     - task: CopyFiles@2
@@ -49,6 +49,7 @@ stages:
       displayName: 'Publish frontend artifact'
 
 - stage: Deploy
+  displayName: 'Deploy Frontend'
   dependsOn: Build
   jobs:
   - deployment: DeployFrontend
@@ -62,8 +63,8 @@ stages:
 
           - task: AzureWebApp@1
             inputs:
-              azureSubscription: 'PeopleTrackerServiceConnectionToDeploy'
+              azureSubscription: 'PeopleTrackerServiceConnectionToDeploy'  # Your Azure service connection name
               appType: 'webApp'
-              appName: 'peopletrackerfrontend'
+              appName: 'peopletrackerfrontend'                            # Your Azure App Service name for frontend
               package: '$(Pipeline.Workspace)/frontend'
             displayName: 'Deploy frontend to Azure App Service'
