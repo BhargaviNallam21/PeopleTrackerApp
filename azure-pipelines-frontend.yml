@@ -27,8 +27,13 @@ stages:
         cd $(frontendFolder)
         npm ci
         npm run build
-        dir dist
       displayName: 'Install dependencies and build React app'
+
+    # Verify dist folder existence after build
+    - script: |
+        echo "Checking contents of dist folder..."
+        dir $(frontendFolder)/dist
+      displayName: 'Verify dist folder contents'
 
     - task: CopyFiles@2
       inputs:
