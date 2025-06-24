@@ -26,7 +26,7 @@ stages:
 
     - task: CopyFiles@2
       inputs:
-        SourceFolder: '$(frontendFolder)/build'  # or 'dist' if using Vite
+        SourceFolder: '$(frontendFolder)/dist'  # or 'dist' if using Vite
         Contents: '**'
         TargetFolder: '$(Build.ArtifactStagingDirectory)/frontend'
 
