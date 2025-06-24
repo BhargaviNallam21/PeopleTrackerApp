@@ -6,6 +6,7 @@ const PeopleServiceapi = axios.create({
 
   baseURL: import.meta.env.VITE_PEOPLE_API,
 });
+
 console.log("PeopleAPI", import.meta.env.VITE_PEOPLE_API);
 PeopleServiceapi.interceptors.request.use((config) => {
   const token = localStorage.getItem("token"); //get token from local storage
