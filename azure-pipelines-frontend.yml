@@ -4,7 +4,7 @@ trigger:
       - Develop
  paths:
     include:
-      - frontend/**   # Only trigger on changes in frontend folder
+      - frontend/PeopleTrackerFrontEnd/**   # Only trigger on changes in frontend folder
     exclude:
       - backend/**    # Just to be explicit, exclude backend folder if needed
 
