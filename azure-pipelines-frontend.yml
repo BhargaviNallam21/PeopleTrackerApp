@@ -2,7 +2,10 @@ trigger:
   branches:
     include:
       - Develop5
- 
+  paths:
+    include:
+      - frontend/**
+
 pool:
   vmImage: 'windows-latest'
 
@@ -13,35 +16,38 @@ stages:
 - stage: Build
   jobs:
   - job: BuildReact
+    displayName: 'Build React Frontend'
     steps:
     - task: NodeTool@0
       inputs:
         versionSpec: '18.x'
+      displayName: 'Install Node.js 18'
 
     - script: |
-        cd frontend/PeopleTrackerFrontEnd
-        npm install
+        cd $(frontendFolder)
+        npm ci
         npm run build
         dir dist
-      displayName: 'Install, build React app and verify dist folder contents'
+      displayName: 'Install dependencies and build React app'
 
     - task: CopyFiles@2
       inputs:
         SourceFolder: '$(Build.SourcesDirectory)/frontend/PeopleTrackerFrontEnd/dist'
         Contents: '**'
         TargetFolder: '$(Build.ArtifactStagingDirectory)/frontend'
+      displayName: 'Copy build output'
 
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)/frontend'
         ArtifactName: 'frontend'
-
+      displayName: 'Publish frontend artifact'
 
 - stage: Deploy
   dependsOn: Build
   jobs:
   - deployment: DeployFrontend
-    environment: 'production'       # Set your environment here
+    environment: 'production'
     strategy:
       runOnce:
         deploy:
@@ -51,7 +57,8 @@ stages:
 
           - task: AzureWebApp@1
             inputs:
-              azureSubscription: 'PeopleTrackerServiceConnectionToDeploy'  # Your Azure service connection name
+              azureSubscription: 'PeopleTrackerServiceConnectionToDeploy'
               appType: 'webApp'
-              appName: 'peopletrackerfrontend'                             # Your Azure App Service name for frontend
+              appName: 'peopletrackerfrontend'
               package: '$(Pipeline.Workspace)/frontend'
+            displayName: 'Deploy frontend to Azure App Service'
