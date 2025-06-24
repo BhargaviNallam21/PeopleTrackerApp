@@ -24,9 +24,12 @@ stages:
         npm run build
       displayName: 'Install dependencies and build React app'
 
+    - script: dir $(frontendFolder)/dist
+      displayName: 'Verify dist folder contents'
+
     - task: CopyFiles@2
       inputs:
-        SourceFolder: '$(frontendFolder)/dist'  # or 'dist' if using Vite
+        SourceFolder: '$(frontendFolder)/dist'
         Contents: '**'
         TargetFolder: '$(Build.ArtifactStagingDirectory)/frontend'
 
@@ -51,5 +54,5 @@ stages:
             inputs:
               azureSubscription: 'PeopleTrackerServiceConnectionToDeploy'
               appType: 'webApp'
-              appName: 'peopletrackerfrontend'  # Your frontend app service name
+              appName: 'peopletrackerfrontend'
               package: '$(Pipeline.Workspace)/frontend'
