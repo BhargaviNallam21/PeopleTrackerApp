@@ -2,11 +2,7 @@ trigger:
   branches:
     include:
       - Develop
-  paths:
-    include:
-      - backend/**   # Only trigger on backend folder changes
-    exclude:
-      - frontend/**  # Exclude frontend folder changes    
+  
 variables:
   buildConfiguration: 'Release'
   
