@@ -1,13 +1,8 @@
 trigger:
   branches:
     include:
-      - Develop
- paths:
-    include:
-      - frontend/PeopleTrackerFrontEnd/**   # Only trigger on changes in frontend folder
-    exclude:
-      - backend/**    # Just to be explicit, exclude backend folder if needed
-
+      - Develop5
+ 
 pool:
   vmImage: 'windows-latest'
 
