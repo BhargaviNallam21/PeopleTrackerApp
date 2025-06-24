@@ -2,14 +2,14 @@ trigger:
   branches:
     include:
       - Develop
-      
-variables:
-  buildConfiguration: 'Release'
   paths:
     include:
       - backend/**   # Only trigger on backend folder changes
     exclude:
-      - frontend/**  # Exclude frontend folder changes
+      - frontend/**  # Exclude frontend folder changes    
+variables:
+  buildConfiguration: 'Release'
+  
 
 stages:
 - stage: SonarCloudAnalysis
