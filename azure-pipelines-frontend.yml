@@ -22,20 +22,17 @@ stages:
         versionSpec: '18.x'
       displayName: 'Install Node.js 18'
 
-    - script: |
+     - script: |
         cd $(frontendFolder)
         npm ci
         npm run build
-      displayName: 'Install dependencies and build React app'
-
-    - powershell: |
-        Write-Host "Checking contents of dist folder..."
-        Get-ChildItem "$(frontendFolder)\dist"
-      displayName: 'Verify dist folder contents'
+        echo "Listing dist folder contents after build:"
+        dir dist
+      displayName: 'Install dependencies, build React app, and list dist folder'
 
     - task: CopyFiles@2
       inputs:
-        SourceFolder: '$(Build.SourcesDirectory)/frontend/PeopleTrackerFrontEnd/dist'
+        SourceFolder: '$(Build.SourcesDirectory)/$(frontendFolder)/dist'
         Contents: '**'
         TargetFolder: '$(Build.ArtifactStagingDirectory)/frontend'
       displayName: 'Copy build output'
