@@ -1,0 +1,58 @@
+trigger:
+  branches:
+    include:
+      - Develop
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  frontendFolder: 'frontend/PeopleTrackerFrontEnd'
+
+stages:
+- stage: Build
+  jobs:
+  - job: BuildReact
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '18.x'
+
+    - script: |
+        cd "$(frontendFolder)"
+        npm install
+        npm run build
+      displayName: 'Install dependencies and build React app'
+
+    - powershell: dir $(frontendFolder)/dist
+      displayName: 'Verify dist folder contents'
+
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: '$(frontendFolder)/dist'
+        Contents: '**'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/frontend'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/frontend'
+        ArtifactName: 'frontend'
+
+- stage: Deploy
+  dependsOn: Build
+  jobs:
+  - deployment: DeployFrontend
+    environment: 'production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: frontend
+
+          - task: AzureWebApp@1
+            inputs:
+              azureSubscription: 'PeopleTrackerServiceConnectionToDeploy'
+              appType: 'webApp'
+              appName: 'peopletrackerfrontend'
+              package: '$(Pipeline.Workspace)/frontend'
