@@ -19,7 +19,7 @@ stages:
         versionSpec: '18.x'
 
     - script: |
-        cd $(frontendFolder)
+        cd "$(frontendFolder)"
         npm install
         npm run build
       displayName: 'Install dependencies and build React app'
