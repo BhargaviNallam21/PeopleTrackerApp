@@ -19,19 +19,15 @@ stages:
         versionSpec: '18.x'
 
     - script: |
-        cd "$(frontendFolder)"
+        cd frontend/PeopleTrackerFrontEnd
         npm install
         npm run build
-      displayName: 'Install dependencies and build React app'
-
-    # Verify dist folder in the same script to avoid path issues
-    - script: |
-        dir "$(frontendFolder)/dist"
-      displayName: 'Verify dist folder contents'
+        dir dist
+      displayName: 'Install, build React app and verify dist folder contents'
 
     - task: CopyFiles@2
       inputs:
-        SourceFolder: '$(frontendFolder)/dist'
+        SourceFolder: '$(Build.SourcesDirectory)/frontend/PeopleTrackerFrontEnd/dist'
         Contents: '**'
         TargetFolder: '$(Build.ArtifactStagingDirectory)/frontend'
 
@@ -39,6 +35,7 @@ stages:
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)/frontend'
         ArtifactName: 'frontend'
+
 
 - stage: Deploy
   dependsOn: Build
